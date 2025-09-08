@@ -24,38 +24,51 @@ export default function TaskList() {
         setTasks(filteredTasksList);
     }
 
-    const addTask = () => {
-
-    }
-
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     }
 
-    const handleAddTask = (event: MouseEvent<HTMLButtonElement>) => {
-        if (inputValue.trim() === '') {
-            return; // Prevent adding empty items
-        }
+    const handleAddTask = () => {
+        if (!inputValue.trim()) return;
 
-        const newTask = {
-            id: tasks.length > 0 ? Math.max(...tasks.map(task => task.id)) + 1 : 1,
+        const newTask: Task = {
+            id: Date.now(),
             title: inputValue,
             completed: false,
         };
 
         setTasks([...tasks, newTask]);
-        setInputValue('');
+        setInputValue("");
+    };
 
-    }
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            handleAddTask();
+        }
+    };
 
     return (
         <div className="p-6 bg-white rounded-xl shadow-md mt-6">
-            <div className="flex justify-between">
+            <div className="flex justify-between p-2">
                 <h2 className="text-xl font-semibold mb-4">Task List</h2>
-                <div>
-                    <input type="text" className="border-solid py-1" onChange={handleInputChange} value={inputValue} />
-                    <button className="px-3 py-1 bg-green-500 rounded" onClick={handleAddTask}>+</button>
+                <div className="flex gap-2">
+                    <input
+                        type="text"
+                        placeholder="Add a new task"
+                        className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
+                        value={inputValue}
+                    />
+                    <button
+                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                        onClick={handleAddTask}
+                    >
+                        +
+                    </button>
                 </div>
+
             </div>
             <ul>
                 {tasks.map(task => (
