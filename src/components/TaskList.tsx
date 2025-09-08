@@ -1,4 +1,5 @@
-import { useState, ChangeEvent, MouseEvent } from "react";
+import { useState } from "react";
+import type { ChangeEvent } from "react";
 
 type Task = {
     id: number;
