@@ -13,7 +13,7 @@ type TaskListProps = {
     showCompleted?: boolean;
 }
 
-export default function TaskList({ title, initialTasks, showCompleted }: TaskListProps) {
+export default function TaskList({ title, initialTasks, showCompleted = true }: TaskListProps) {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [inputValue, setInputValue] = useState<string>('');
 
@@ -76,7 +76,8 @@ export default function TaskList({ title, initialTasks, showCompleted }: TaskLis
             </div>
             <ul>
                 {tasks
-                    .filter(task => showCompleted ? true : !task.completed)
+                    //.filter(task => showCompleted ? true : !task.completed)
+                    .filter(task => showCompleted || !task.completed)
                     .map(task => ( 
                         <li
                             key={task.id}

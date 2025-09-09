@@ -15,7 +15,7 @@ export default function App() {
   return (
     <div className="p-8 space-y-8">
       <Counter />
-      <TaskList title="Frontend Team Tasks" initialTasks={frontendTasks} />
+      <TaskList title="Frontend Team Tasks" initialTasks={frontendTasks} showCompleted={false} />
       <TaskList title="Backend Team Tasks" initialTasks={backendTasks} showCompleted={true} />
     </div>
   );
