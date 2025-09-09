@@ -1,15 +1,22 @@
 import Counter from "./components/Counter";
-import TaskList from "./components/TaskList";
+import TaskList, { Task } from "./components/TaskList";
 
-type Props = {
-  name: string;
-};
+export default function App() {
+  const frontendTasks: Task[] = [
+    { id: 1, title: "Migrate to React 18", completed: true },
+    { id: 2, title: "Refactor components", completed: true },
+  ];
 
-export default function App({ name }: Props) {
+  const backendTasks: Task[] = [
+    { id: 1, title: "Set up Prisma", completed: false },
+    { id: 2, title: "Implement API auth", completed: false },
+  ];
+
   return (
     <div className="p-8 space-y-8">
       <Counter />
-      <TaskList />
+      <TaskList title="Frontend Team Tasks" initialTasks={frontendTasks} />
+      <TaskList title="Backend Team Tasks" initialTasks={backendTasks} showCompleted={true} />
     </div>
   );
 }

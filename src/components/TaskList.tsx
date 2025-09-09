@@ -1,17 +1,20 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 
-type Task = {
+export type Task = {
     id: number;
     title: string;
     completed: boolean;
 };
 
-export default function TaskList() {
-    const [tasks, setTasks] = useState<Task[]>([
-        { id: 1, title: "Learn React", completed: true },
-        { id: 2, title: "Learn TypeScript", completed: false },
-    ]);
+type TaskListProps = {
+    title: string;
+    initialTasks: Task[];
+    showCompleted?: boolean;
+}
+
+export default function TaskList({ title, initialTasks, showCompleted }: TaskListProps) {
+    const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [inputValue, setInputValue] = useState<string>('');
 
     const toggleTask = (id: number) => {
@@ -52,7 +55,7 @@ export default function TaskList() {
     return (
         <div className="p-6 bg-white rounded-xl shadow-md mt-6">
             <div className="flex justify-between p-2">
-                <h2 className="text-xl font-semibold mb-4">Task List</h2>
+                <h2 className="text-xl font-semibold mb-4">{title}</h2>
                 <div className="flex gap-2">
                     <input
                         type="text"
@@ -72,24 +75,26 @@ export default function TaskList() {
 
             </div>
             <ul>
-                {tasks.map(task => (
-                    <li
-                        key={task.id}
-                        className={`flex justify-between items-center p-2 ${task.completed ? "line-through text-gray-400" : "text-gray-800"
-                            }`}
-                    >
-                        {task.title}
-                        <div>
-                            <button
-                                onClick={() => toggleTask(task.id)}
-                                className="px-3 py-1 mr-2 bg-green-500 text-white rounded"
-                            >
-                                {task.completed ? "Undo" : "Done"}
-                            </button>
-                            <button onClick={() => deleteTask(task.id)}
-                                className="px-3 py-1 bg-red-600 text-white rounded">x</button>
-                        </div>
-                    </li>
+                {tasks
+                    .filter(task => showCompleted ? true : !task.completed)
+                    .map(task => ( 
+                        <li
+                            key={task.id}
+                            className={`flex justify-between items-center p-2 ${task.completed ? "line-through text-gray-400" : "text-gray-800"
+                                }`}
+                        >
+                            {task.title}
+                            <div>
+                                <button
+                                    onClick={() => toggleTask(task.id)}
+                                    className="px-3 py-1 mr-2 bg-green-500 text-white rounded"
+                                >
+                                    {task.completed ? "Undo" : "Done"}
+                                </button>
+                                <button onClick={() => deleteTask(task.id)}
+                                    className="px-3 py-1 bg-red-600 text-white rounded">x</button>
+                            </div>
+                        </li>
                 ))}
             </ul>
         </div>
