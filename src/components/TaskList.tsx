@@ -12,20 +12,21 @@ type TaskListProps = {
     initialTasks: Task[];
     showCompleted?: boolean;
     onTaskToggle?: (task: Task) => void;
+    emptyMessage?: string;
 }
 
-export default function TaskList({ title, initialTasks, showCompleted = true, onTaskToggle }: TaskListProps) {
+export default function TaskList({ title, initialTasks, showCompleted = true, onTaskToggle, emptyMessage = "All done here" }: TaskListProps) {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [inputValue, setInputValue] = useState<string>('');
 
     const toggleTask = (id: number) => {
         const updatedTasks = tasks.map(task =>
-            task.id === id ?{...task, completed: !task.completed} : task
+            task.id === id ? { ...task, completed: !task.completed } : task
         );
         setTasks(updatedTasks);
 
         const toggledTask = updatedTasks.find(task => task.id === id);
-        if(toggledTask && onTaskToggle) {
+        if (toggledTask && onTaskToggle) {
             onTaskToggle(toggledTask);
         }
     };
@@ -82,28 +83,30 @@ export default function TaskList({ title, initialTasks, showCompleted = true, on
 
             </div>
             <ul>
-                {tasks
-                    //.filter(task => showCompleted ? true : !task.completed)
-                    .filter(task => showCompleted || !task.completed)
-                    .map(task => ( 
-                        <li
-                            key={task.id}
-                            className={`flex justify-between items-center p-2 ${task.completed ? "line-through text-gray-400" : "text-gray-800"
-                                }`}
-                        >
-                            {task.title}
-                            <div>
-                                <button
-                                    onClick={() => toggleTask(task.id)}
-                                    className="px-3 py-1 mr-2 bg-green-500 text-white rounded"
-                                >
-                                    {task.completed ? "Undo" : "Done"}
-                                </button>
-                                <button onClick={() => deleteTask(task.id)}
-                                    className="px-3 py-1 bg-red-600 text-white rounded">x</button>
-                            </div>
-                        </li>
-                ))}
+                {tasks.length === 0 ? emptyMessage :
+                    tasks
+                        //.filter(task => showCompleted ? true : !task.completed)
+                        .filter(task => showCompleted || !task.completed)
+                        .map(task => (
+                            <li
+                                key={task.id}
+                                className={`flex justify-between items-center p-2 ${task.completed ? "line-through text-gray-400" : "text-gray-800"
+                                    }`}
+                            >
+                                {task.title}
+                                <div>
+                                    <button
+                                        onClick={() => toggleTask(task.id)}
+                                        className="px-3 py-1 mr-2 bg-green-500 text-white rounded"
+                                    >
+                                        {task.completed ? "Undo" : "Done"}
+                                    </button>
+                                    <button onClick={() => deleteTask(task.id)}
+                                        className="px-3 py-1 bg-red-600 text-white rounded">x</button>
+                                </div>
+                            </li>
+                        ))
+                }
             </ul>
         </div>
     );
