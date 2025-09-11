@@ -11,16 +11,23 @@ type TaskListProps = {
     title: string;
     initialTasks: Task[];
     showCompleted?: boolean;
+    onTaskToggle?: (task: Task) => void;
 }
 
-export default function TaskList({ title, initialTasks, showCompleted = true }: TaskListProps) {
+export default function TaskList({ title, initialTasks, showCompleted = true, onTaskToggle }: TaskListProps) {
     const [tasks, setTasks] = useState<Task[]>(initialTasks);
     const [inputValue, setInputValue] = useState<string>('');
 
     const toggleTask = (id: number) => {
-        setTasks(tasks.map(task =>
-            task.id === id ? { ...task, completed: !task.completed } : task
-        ));
+        const updatedTasks = tasks.map(task =>
+            task.id === id ?{...task, completed: !task.completed} : task
+        );
+        setTasks(updatedTasks);
+
+        const toggledTask = updatedTasks.find(task => task.id === id);
+        if(toggledTask && onTaskToggle) {
+            onTaskToggle(toggledTask);
+        }
     };
 
     const deleteTask = (id: number) => {

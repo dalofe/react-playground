@@ -16,7 +16,7 @@ export default function App() {
     <div className="p-8 space-y-8">
       <Counter />
       <TaskList title="Frontend Team Tasks" initialTasks={frontendTasks} showCompleted={false} />
-      <TaskList title="Backend Team Tasks" initialTasks={backendTasks} showCompleted={true} />
+      <TaskList title="Backend Team Tasks" initialTasks={backendTasks} showCompleted={true} onTaskToggle={(task) => console.log("Task updated", task)}/>
     </div>
   );
 }
