@@ -83,7 +83,7 @@ export default function TaskList({ title, initialTasks, showCompleted = true, on
 
             </div>
             <ul>
-                {tasks.length === 0 ? emptyMessage :
+                {tasks.length === 0 ? (<li className="p-2 text-gray-500 italic">{emptyMessage}</li>) :
                     tasks
                         //.filter(task => showCompleted ? true : !task.completed)
                         .filter(task => showCompleted || !task.completed)
@@ -97,12 +97,12 @@ export default function TaskList({ title, initialTasks, showCompleted = true, on
                                 <div>
                                     <button
                                         onClick={() => toggleTask(task.id)}
-                                        className="px-3 py-1 mr-2 bg-green-500 text-white rounded"
+                                        className="px-3 py-1 mr-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
                                     >
                                         {task.completed ? "Undo" : "Done"}
                                     </button>
                                     <button onClick={() => deleteTask(task.id)}
-                                        className="px-3 py-1 bg-red-600 text-white rounded">x</button>
+                                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition">x</button>
                                 </div>
                             </li>
                         ))
