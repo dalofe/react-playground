@@ -88,21 +88,18 @@ export default function TaskList({ title, initialTasks, showCompleted = true, on
                         //.filter(task => showCompleted ? true : !task.completed)
                         .filter(task => showCompleted || !task.completed)
                         .map(task => (
-                            <li
-                                key={task.id}
-                                className={`flex justify-between items-center p-2 ${task.completed ? "line-through text-gray-400" : "text-gray-800"
-                                    }`}
-                            >
-                                {task.title}
+                            <li key={task.id} className="flex justify-between items-center p-2 text-gray-800">
+                                <div className="flex items-center gap-2">
+                                    <span className={task.completed ? "line-through text-gray-400" : ""}>{task.title}</span>
+                                    {task.completed && (
+                                        <span className="text-green-600 text-sm">✔</span>
+                                    )}
+                                </div>
+
                                 <div>
-                                    <button
-                                        onClick={() => toggleTask(task.id)}
-                                        className="px-3 py-1 mr-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
-                                    >
-                                        {task.completed ? "Undo" : "Done"}
-                                    </button>
-                                    <button onClick={() => deleteTask(task.id)}
-                                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition">x</button>
+                                    <button onClick={() => toggleTask(task.id)}
+                                        className="px-3 py-1 mr-2 bg-green-500 text-white rounded hover:bg-green-600 transition">{task.completed ? "Undo" : "Done"}</button>
+                                    <button onClick={() => deleteTask(task.id)} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition">x</button>
                                 </div>
                             </li>
                         ))
