@@ -1,5 +1,7 @@
 import Counter from "./components/Counter";
-import TaskList, { Task } from "./components/TaskList";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import type { Task } from "./components/TaskList";
 
 export default function App() {
   const frontendTasks: Task[] = [
@@ -15,6 +17,7 @@ export default function App() {
   return (
     <div className="p-8 space-y-8">
       <Counter />
+      <TaskForm onAddTask={(title) => console.log("New Task:", title)}/>
       <TaskList title="Frontend Team Tasks" initialTasks={frontendTasks} showCompleted={true} />
       <TaskList title="Backend Team Tasks" initialTasks={backendTasks} showCompleted={true} onTaskToggle={(task) => console.log("Task updated", task)} emptyMessage="No backend tasks"/>
     </div>
