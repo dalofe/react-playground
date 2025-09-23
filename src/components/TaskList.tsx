@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export type Task = {
     id: number;
@@ -9,14 +9,14 @@ export type Task = {
 
 type TaskListProps = {
     title: string;
-    initialTasks: Task[];
+    tasks: Task[];
+    setTasks: Dispatch<SetStateAction<Task[]>>;
     showCompleted?: boolean;
     onTaskToggle?: (task: Task) => void;
     emptyMessage?: string;
 }
 
-export default function TaskList({ title, initialTasks, showCompleted = true, onTaskToggle, emptyMessage = "All done here" }: TaskListProps) {
-    const [tasks, setTasks] = useState<Task[]>(initialTasks);
+export default function TaskList({ title, tasks, setTasks, showCompleted = true, onTaskToggle, emptyMessage = "All done here" }: TaskListProps) {
     const [inputValue, setInputValue] = useState<string>('');
 
     const toggleTask = (id: number) => {
