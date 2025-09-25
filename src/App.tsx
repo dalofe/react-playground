@@ -26,7 +26,7 @@ export default function App() {
   return (
     <div className="p-8 space-y-8">
       <Counter />
-      <TaskForm onAddTask={(title) => handleAddFrontendTask(title)} />
+      <TaskForm onAddTask={handleAddFrontendTask} />
       <TaskList title="Frontend Team Tasks" showCompleted={true} tasks={frontendTasks} setTasks={setFrontendTasks} />
       <TaskList title="Backend Team Tasks" showCompleted={true} tasks={backendTasks} setTasks={setBackendTasks} onTaskToggle={(task) => console.log("Task updated", task)} emptyMessage="No backend tasks" />
     </div>
