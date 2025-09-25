@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import TaskProgress from "./TaskProgress";
 
 export type Task = {
     id: number;
@@ -60,20 +61,8 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
         }
     };
 
-    const total = tasks.length;
-    const completed = tasks.filter(t => t.completed).length;
-    const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
-
     return (
         <div className="p-6 bg-white rounded-xl shadow-md mt-6">
-            {progress === 100 ? "🎉 All done!" : (
-                <>
-                    <div>{completed} of {total} tasks completed ({progress}%)</div>
-                    <div className="w-full bg-gray-200 rounded-full h2 mt-2">
-                        <div className="bg-green-500 h-2 rounded-full" style={{ width: `${progress}%` }}></div>
-                    </div>
-                </>
-            )}
             <div className="flex justify-between p-2">
                 <h2 className="text-xl font-semibold mb-4">{title}</h2>
                 <div className="flex gap-2">
@@ -92,8 +81,8 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
                         +
                     </button>
                 </div>
-
             </div>
+            <TaskProgress tasks={tasks} />
             <ul>
                 {tasks.length === 0 ? (<li className="p-2 text-gray-500 italic">{emptyMessage}</li>) :
                     tasks
