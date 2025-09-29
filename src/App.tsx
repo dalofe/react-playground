@@ -5,27 +5,25 @@ import TaskList from "./components/TaskList";
 import type { Task } from "./components/TaskList";
 
 export default function App() {
-  let initialFrontendTasks: Task[] = [
+  const loadStates = (key: string, fallback: Task[]): Task[] => {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : fallback;
+  };
+
+  const [frontendTasks, setFrontendTasks] = useState<Task[]>(() => loadStates("frontendTasks", [
     { id: 1, title: "Migrate to React 18", completed: true },
     { id: 2, title: "Refactor components", completed: true },
-  ];
-  const frontendSavedTasks = localStorage.getItem("frontendTasks");
-  initialFrontendTasks = frontendSavedTasks ? JSON.parse(frontendSavedTasks) : initialFrontendTasks;
-
-  const [frontendTasks, setFrontendTasks] = useState<Task[]>(initialFrontendTasks);
+  ]));
 
   useEffect(() => {
     localStorage.setItem("frontendTasks", JSON.stringify(frontendTasks));
   }, [frontendTasks]);
 
-  let initialBackendTasks: Task[] = [
+
+  const [backendTasks, setBackendTasks] = useState<Task[]>(() => loadStates("backendTasks", [
     { id: 1, title: "Set up Prisma", completed: false },
     { id: 2, title: "Implement API auth", completed: false },
-  ];
-  const backendSavedTasks = localStorage.getItem("backendTasks");
-  initialBackendTasks = backendSavedTasks ? JSON.parse(backendSavedTasks) : initialBackendTasks;
-
-  const [backendTasks, setBackendTasks] = useState<Task[]>(initialBackendTasks);
+  ]));
 
   useEffect(() => {
     localStorage.setItem("backendTasks", JSON.stringify(backendTasks));
