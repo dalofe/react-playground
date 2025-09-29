@@ -62,8 +62,9 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
     };
 
     const emptyList = () => {
-        console.log("cleared!");
-        setTasks([]);
+        if (window.confirm("Are you sure you want to clear all the tasks?")) {
+            setTasks([]);
+        }
     }
 
     return (
