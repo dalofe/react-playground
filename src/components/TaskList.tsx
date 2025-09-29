@@ -61,6 +61,11 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
         }
     };
 
+    const emptyList = () => {
+        console.log("cleared!");
+        setTasks([]);
+    }
+
     return (
         <div className="p-6 bg-white rounded-xl shadow-md mt-6">
             <div className="flex justify-between p-2">
@@ -106,6 +111,10 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
                         ))
                 }
             </ul>
+            <div className="grid justify-items-center">
+                <button onClick={emptyList}
+                    className="px-3 py-1 bg-yellow-200 rounded hover:bg-yellow-300 transition">Clear all tasks</button>
+            </div>
         </div>
     );
 }
