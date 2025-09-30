@@ -3,11 +3,10 @@ import type { ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
 import type { Task } from "./TaskList";
 
 type TaskFormProps = {
-    tasks: Task[];
     setTasks: Dispatch<SetStateAction<Task[]>>;
 }
 
-export default function TaskForm({ tasks, setTasks }: TaskFormProps) {
+export default function TaskForm({ setTasks }: TaskFormProps) {
     const [title, setTitle] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -27,14 +26,15 @@ export default function TaskForm({ tasks, setTasks }: TaskFormProps) {
             };
 
             setErrorMessage("");
-            setTasks([...tasks, newTask]);
+            //setTasks([...tasks, newTask]);
+            setTasks(prev => [...prev, newTask]);
             setTitle("");
         }
     }
 
     return (
         <div>
-            {errorMessage && (<span className="text-red-500 text-sm">Add a task to submit!</span>)}
+            {errorMessage && (<span className="text-red-500 text-sm">{errorMessage}</span>)}
             <form className="flex gap-2" onSubmit={handleSubmit}>
                 <input
                     type="text"

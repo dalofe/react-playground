@@ -45,7 +45,7 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
         <div className="p-6 bg-white rounded-xl shadow-md mt-6">
             <div className="flex justify-between p-2">
                 <h2 className="text-xl font-semibold mb-4">{title}</h2>
-                <TaskForm setTasks={setTasks} tasks={tasks} />
+                <TaskForm setTasks={setTasks} />
             </div>
             <TaskProgress tasks={tasks} />
             <ul>
@@ -71,7 +71,7 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
                         ))
                 }
             </ul>
-            <div className="grid justify-items-center">
+            <div className="grid justify-items-center mt-3">
                 <button onClick={emptyList}
                     className="px-3 py-1 bg-yellow-200 rounded hover:bg-yellow-300 transition">Clear all tasks</button>
             </div>
