@@ -27,13 +27,21 @@ export default function App() {
     localStorage.setItem("backendTasks", JSON.stringify(backendTasks));
   }, [backendTasks]);
 
+  const handleAddFrotendTasks = (title: string) => {
+    setFrontendTasks(prev => [...prev, {id: Date.now(), title, completed: false}]);
+  };
+
+  const handleAddBackendTasks = (title: string) => {
+    setBackendTasks(prev => [...prev, {id: Date.now(), title, completed: false}]);
+  };
+
   const totalTasks = frontendTasks.length + backendTasks.length;
   const totalCompleted = frontendTasks.filter(t => t.completed).length + backendTasks.filter(t => t.completed).length;
 
   return (
     <div className="p-8 space-y-8">
-      <TaskList title="Frontend Team Tasks" showCompleted={true} tasks={frontendTasks} setTasks={setFrontendTasks} emptyMessage="No frontend tasks" />
-      <TaskList title="Backend Team Tasks" showCompleted={true} tasks={backendTasks} setTasks={setBackendTasks} emptyMessage="No backend tasks" />
+      <TaskList title="Frontend Team Tasks" showCompleted={true} tasks={frontendTasks} setTasks={setFrontendTasks} emptyMessage="No frontend tasks" onAddTask={handleAddFrotendTasks}/>
+      <TaskList title="Backend Team Tasks" showCompleted={true} tasks={backendTasks} setTasks={setBackendTasks} emptyMessage="No backend tasks" onAddTask={handleAddBackendTasks} />
       <div className="p-4 bg-gray-100 rounded-lg">
         Overall Progress: {totalCompleted}/{totalTasks} tasks done
       </div>

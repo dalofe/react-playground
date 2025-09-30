@@ -1,12 +1,11 @@
 import { useState } from "react";
-import type { ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
-import type { Task } from "./TaskList";
+import type { ChangeEvent, FormEvent } from "react"
 
 type TaskFormProps = {
-    setTasks: Dispatch<SetStateAction<Task[]>>;
+    onAddTask: (title: string) => void;
 }
 
-export default function TaskForm({ setTasks }: TaskFormProps) {
+export default function TaskForm({ onAddTask }: TaskFormProps) {
     const [title, setTitle] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -19,15 +18,8 @@ export default function TaskForm({ setTasks }: TaskFormProps) {
         if (title.length === 0) {
             setErrorMessage("Task title cannot be empty");
         } else {
-            const newTask: Task = {
-                id: Date.now(),
-                title,
-                completed: false,
-            };
-
             setErrorMessage("");
-            //setTasks([...tasks, newTask]);
-            setTasks(prev => [...prev, newTask]);
+            onAddTask(title);
             setTitle("");
         }
     }

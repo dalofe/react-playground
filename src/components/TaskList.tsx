@@ -15,9 +15,10 @@ type TaskListProps = {
     showCompleted?: boolean;
     onTaskToggle?: (task: Task) => void;
     emptyMessage?: string;
+    onAddTask: (title: string) => void;
 }
 
-export default function TaskList({ title, tasks, setTasks, showCompleted = true, onTaskToggle, emptyMessage = "All done here" }: TaskListProps) {
+export default function TaskList({ title, tasks, setTasks, showCompleted = true, onTaskToggle, emptyMessage = "All done here", onAddTask }: TaskListProps) {
     const toggleTask = (id: number) => {
         const updatedTasks = tasks.map(task =>
             task.id === id ? { ...task, completed: !task.completed } : task
@@ -45,7 +46,7 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
         <div className="p-6 bg-white rounded-xl shadow-md mt-6">
             <div className="flex justify-between p-2">
                 <h2 className="text-xl font-semibold mb-4">{title}</h2>
-                <TaskForm setTasks={setTasks} />
+                <TaskForm onAddTask={onAddTask} />
             </div>
             <TaskProgress tasks={tasks} />
             <ul>
