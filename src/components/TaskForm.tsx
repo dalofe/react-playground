@@ -1,10 +1,13 @@
-import { useState, type ChangeEvent, type FormEvent } from "react"
+import { useState } from "react";
+import type { ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
+import type { Task } from "./TaskList";
 
 type TaskFormProps = {
-    onAddTask: (title: string) => void;
+    tasks: Task[];
+    setTasks: Dispatch<SetStateAction<Task[]>>;
 }
 
-export default function TaskForm({ onAddTask }: TaskFormProps) {
+export default function TaskForm({ tasks, setTasks }: TaskFormProps) {
     const [title, setTitle] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -17,8 +20,14 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
         if (title.length === 0) {
             setErrorMessage("Task title cannot be empty");
         } else {
+            const newTask: Task = {
+                id: Date.now(),
+                title,
+                completed: false,
+            };
+
             setErrorMessage("");
-            onAddTask(title);
+            setTasks([...tasks, newTask]);
             setTitle("");
         }
     }
@@ -26,9 +35,17 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
     return (
         <div>
             {errorMessage && (<span className="text-red-500 text-sm">Add a task to submit!</span>)}
-            <form onSubmit={handleSubmit}>
-                <input type="text" className="border rounded px-2 py-1" value={title} onChange={handleInputChange} />
-                <button type="submit" className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Submit</button>
+            <form className="flex gap-2" onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Add a new task"
+                    className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    value={title}
+                    onChange={handleInputChange} />
+                <button
+                    type="submit"
+                    className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                >+</button>
             </form>
         </div>
     )

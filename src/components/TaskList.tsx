@@ -1,6 +1,6 @@
-import { useState } from "react";
-import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import TaskProgress from "./TaskProgress";
+import TaskForm from "./TaskForm";
 
 export type Task = {
     id: number;
@@ -18,8 +18,6 @@ type TaskListProps = {
 }
 
 export default function TaskList({ title, tasks, setTasks, showCompleted = true, onTaskToggle, emptyMessage = "All done here" }: TaskListProps) {
-    const [inputValue, setInputValue] = useState<string>('');
-
     const toggleTask = (id: number) => {
         const updatedTasks = tasks.map(task =>
             task.id === id ? { ...task, completed: !task.completed } : task
@@ -37,30 +35,6 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
         setTasks(filteredTasksList);
     }
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value);
-    }
-
-    const handleAddTask = () => {
-        if (!inputValue.trim()) return;
-
-        const newTask: Task = {
-            id: Date.now(),
-            title: inputValue,
-            completed: false,
-        };
-
-        setTasks([...tasks, newTask]);
-        setInputValue("");
-    };
-
-
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            handleAddTask();
-        }
-    };
-
     const emptyList = () => {
         if (window.confirm("Are you sure you want to clear all the tasks?")) {
             setTasks([]);
@@ -71,22 +45,7 @@ export default function TaskList({ title, tasks, setTasks, showCompleted = true,
         <div className="p-6 bg-white rounded-xl shadow-md mt-6">
             <div className="flex justify-between p-2">
                 <h2 className="text-xl font-semibold mb-4">{title}</h2>
-                <div className="flex gap-2">
-                    <input
-                        type="text"
-                        placeholder="Add a new task"
-                        className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}
-                        value={inputValue}
-                    />
-                    <button
-                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-                        onClick={handleAddTask}
-                    >
-                        +
-                    </button>
-                </div>
+                <TaskForm setTasks={setTasks} tasks={tasks} />
             </div>
             <TaskProgress tasks={tasks} />
             <ul>
