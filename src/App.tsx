@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import TaskList from './components/TaskList';
 import type { Task } from './components/TaskList';
+import { AlertBox } from './components/AlertBox';
 
 export default function App() {
+  const [notification, setNotification] = useState("");
+
   const loadStates = (key: string, fallback: Task[]): Task[] => {
     const saved = localStorage.getItem(key);
     return saved ? JSON.parse(saved) : fallback;
@@ -51,6 +54,7 @@ export default function App() {
 
   return (
     <div className="p-8 space-y-8">
+      {notification && <AlertBox message={notification} />}
       <TaskList
         title="Frontend Team Tasks"
         showCompleted={true}
@@ -58,6 +62,7 @@ export default function App() {
         setTasks={setFrontendTasks}
         emptyMessage="No frontend tasks"
         onAddTask={handleAddFrotendTasks}
+        setNotification={setNotification}
       />
       <TaskList
         title="Backend Team Tasks"
@@ -66,6 +71,7 @@ export default function App() {
         setTasks={setBackendTasks}
         emptyMessage="No backend tasks"
         onAddTask={handleAddBackendTasks}
+        setNotification={setNotification}
       />
       <div className="p-4 bg-gray-100 rounded-lg">
         Overall Progress: {totalCompleted}/{totalTasks} tasks done

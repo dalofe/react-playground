@@ -1,11 +1,12 @@
 import { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react"
+import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react"
 
 type TaskFormProps = {
     onAddTask: (title: string) => void;
+    setNotification: Dispatch<SetStateAction<string>>;
 }
 
-export default function TaskForm({ onAddTask }: TaskFormProps) {
+export default function TaskForm({ onAddTask, setNotification }: TaskFormProps) {
     const [title, setTitle] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -21,6 +22,9 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
             setErrorMessage("");
             onAddTask(title);
             setTitle("");
+
+            setNotification("Task added successfully!");
+            setTimeout(() => setNotification(""), 3000);
         }
     }
 
