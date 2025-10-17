@@ -1,14 +1,16 @@
-import { useState } from "react";
-import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react"
+import { useRef, useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
+import { AlertBox } from "./AlertBox"
 
 type TaskFormProps = {
     onAddTask: (title: string) => void;
-    setNotification: Dispatch<SetStateAction<string>>;
 }
 
-export default function TaskForm({ onAddTask, setNotification }: TaskFormProps) {
+export default function TaskForm({ onAddTask }: TaskFormProps) {
     const [title, setTitle] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [notification, setNotification] = useState("");
+    const timeoutRef = useRef<number | null>(null);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
@@ -24,13 +26,15 @@ export default function TaskForm({ onAddTask, setNotification }: TaskFormProps) 
             setTitle("");
 
             setNotification("Task added successfully!");
-            setTimeout(() => setNotification(""), 3000);
+            if(timeoutRef.current) clearTimeout(timeoutRef.current);
+            timeoutRef.current = window.setTimeout(() => setNotification(""), 3000);
         }
     }
 
     return (
         <div>
             {errorMessage && (<span className="text-red-500 text-sm">{errorMessage}</span>)}
+            {notification && <AlertBox message={notification} dismissible={true}/>}
             <form className="flex gap-2" onSubmit={handleSubmit}>
                 <input
                     type="text"

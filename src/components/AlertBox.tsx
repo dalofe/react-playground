@@ -3,7 +3,7 @@ type AlertType = 'success' | 'error' | 'warning';
 type AlertBoxProps = {
   message: string;
   type?: AlertType;
-  dismissable?: boolean;
+  dismissible?: boolean;
 };
 
 const typeClasses: Record<AlertType, string> = {
@@ -15,20 +15,19 @@ const typeClasses: Record<AlertType, string> = {
 export function AlertBox({
   message,
   type = 'success',
-  dismissable = false,
+  dismissible = false,
 }: AlertBoxProps) {
   if (!message) return null;
 
   return (
     <div
-      className={`border-l-4 p-4 mb-4 rounded absolute right-8 ${typeClasses[type]}`}
+      className={`border-l-4 p-4 mb-4 rounded fixed right-8 bottom-8 shadow-md transition-opacity ${typeClasses[type]}`}
       role="alert"
     >
       <p>{message}</p>
-      {dismissable && (
+      {dismissible && (
         <button
           className="absolute top-1 right-2 text-lg font-bold text-inherit hover:opacity-70"
-          onClick={() => alert('Dismiss clicked')}
         >
           x
         </button>

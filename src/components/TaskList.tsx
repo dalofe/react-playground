@@ -16,7 +16,6 @@ type TaskListProps = {
   onTaskToggle?: (task: Task) => void;
   emptyMessage?: string;
   onAddTask: (title: string) => void;
-  setNotification: Dispatch<SetStateAction<string>>;
 };
 
 export default function TaskList({
@@ -27,7 +26,6 @@ export default function TaskList({
   onTaskToggle,
   emptyMessage = 'All done here',
   onAddTask,
-  setNotification,
 }: TaskListProps) {
   const toggleTask = (id: number) => {
     const updatedTasks = tasks.map((task) =>
@@ -56,7 +54,7 @@ export default function TaskList({
     <div className="p-6 bg-white rounded-xl shadow-md mt-6">
       <div className="flex justify-between p-2">
         <h2 className="text-xl font-semibold mb-4">{title}</h2>
-        <TaskForm onAddTask={onAddTask} setNotification={setNotification} />
+        <TaskForm onAddTask={onAddTask} />
       </div>
       <TaskProgress tasks={tasks} />
       <ul>
