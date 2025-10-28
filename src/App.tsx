@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import TaskList from './components/TaskList';
 import type { Task, TaskDraft } from './types/task';
+import { TaskFilterBar } from './components/TaskFilterBar';
 
 export default function App() {
   const loadStates = (key: string, fallback: Task[]): Task[] => {
@@ -31,18 +32,18 @@ export default function App() {
   }, [backendTasks]);
 
   const handleAddFrotendTasks = (draft: TaskDraft) => {
-    setFrontendTasks(prev => [
+    setFrontendTasks((prev) => [
       ...prev,
-      {id: Date.now(), title: draft.title ?? '', completed: false},
+      { id: Date.now(), title: draft.title ?? '', completed: false },
     ]);
   };
 
   const handleAddBackendTasks = (draft: TaskDraft) => {
-    setBackendTasks(prev => [
+    setBackendTasks((prev) => [
       ...prev,
-      {id: Date.now(), title: draft.title ?? '', completed: false},
-    ])
-  }
+      { id: Date.now(), title: draft.title ?? '', completed: false },
+    ]);
+  };
 
   const totalTasks = frontendTasks.length + backendTasks.length;
   const totalCompleted =
@@ -51,6 +52,7 @@ export default function App() {
 
   return (
     <div className="p-8 space-y-8">
+      <TaskFilterBar tasks={frontendTasks} setTasks={setFrontendTasks} />
       <TaskList
         title="Frontend Team Tasks"
         showCompleted={true}
@@ -59,6 +61,7 @@ export default function App() {
         emptyMessage="No frontend tasks"
         onAddTask={handleAddFrotendTasks}
       />
+      <TaskFilterBar tasks={backendTasks} setTasks={setBackendTasks} />
       <TaskList
         title="Backend Team Tasks"
         showCompleted={true}
