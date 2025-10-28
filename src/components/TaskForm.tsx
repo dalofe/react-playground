@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import { AlertBox } from "./AlertBox"
+import { AlertBox } from "./AlertBox";
+import type { TaskDraft } from "../types/task";
 
 type TaskFormProps = {
-    onAddTask: (title: string) => void;
+    onAddTask: (task: TaskDraft) => void;
 }
 
 export default function TaskForm({ onAddTask }: TaskFormProps) {
@@ -22,7 +23,7 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
             setErrorMessage("Task title cannot be empty");
         } else {
             setErrorMessage("");
-            onAddTask(title);
+            onAddTask({title});
             setTitle("");
 
             setNotification("Task added successfully!");

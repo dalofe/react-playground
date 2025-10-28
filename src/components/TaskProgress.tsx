@@ -1,7 +1,7 @@
-import type { Task } from './TaskList';
+import type { ReadonlyTask } from '../types/task';
 
 type TaskProgressProps = {
-  tasks: Task[];
+  tasks: ReadonlyTask[];
 };
 
 export default function TaskProgress({ tasks }: TaskProgressProps) {

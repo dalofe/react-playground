@@ -1,12 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import TaskProgress from './TaskProgress';
 import TaskForm from './TaskForm';
-
-export type Task = {
-  id: number;
-  title: string;
-  completed: boolean;
-};
+import type { Task, TaskDraft } from '../types/task';
 
 type TaskListProps = {
   title: string;
@@ -15,7 +10,7 @@ type TaskListProps = {
   showCompleted?: boolean;
   onTaskToggle?: (task: Task) => void;
   emptyMessage?: string;
-  onAddTask: (title: string) => void;
+  onAddTask: (Task: TaskDraft) => void;
 };
 
 export default function TaskList({

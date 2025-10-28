@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import TaskList from './components/TaskList';
-import type { Task } from './components/TaskList';
+import type { Task, TaskDraft } from './types/task';
 
 export default function App() {
   const loadStates = (key: string, fallback: Task[]): Task[] => {
@@ -30,19 +30,19 @@ export default function App() {
     localStorage.setItem('backendTasks', JSON.stringify(backendTasks));
   }, [backendTasks]);
 
-  const handleAddFrotendTasks = (title: string) => {
-    setFrontendTasks((prev) => [
+  const handleAddFrotendTasks = (draft: TaskDraft) => {
+    setFrontendTasks(prev => [
       ...prev,
-      { id: Date.now(), title, completed: false },
+      {id: Date.now(), title: draft.title ?? '', completed: false},
     ]);
   };
 
-  const handleAddBackendTasks = (title: string) => {
-    setBackendTasks((prev) => [
+  const handleAddBackendTasks = (draft: TaskDraft) => {
+    setBackendTasks(prev => [
       ...prev,
-      { id: Date.now(), title, completed: false },
-    ]);
-  };
+      {id: Date.now(), title: draft.title ?? '', completed: false},
+    ])
+  }
 
   const totalTasks = frontendTasks.length + backendTasks.length;
   const totalCompleted =
