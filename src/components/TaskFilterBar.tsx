@@ -1,9 +1,9 @@
-import type { Task } from '../types/task';
+import type { Task, SortOptions } from '../types/task';
 
 type TaskFilterBarProps = {
   tasks: Task[],
-  sort: "none" | "asc" | "desc";
-  onSortChange: (value: "none" | "asc" | "desc") => void;
+  sort: SortOptions;
+  onSortChange: (value: SortOptions) => void;
 };
 
 export function TaskFilterBar({ tasks, sort, onSortChange }: TaskFilterBarProps) {
@@ -21,7 +21,7 @@ export function TaskFilterBar({ tasks, sort, onSortChange }: TaskFilterBarProps)
       </div>
       <div>
         <label className="mr-2 font-semibold">Sort:</label>
-        <select value={sort} onChange={(e) => onSortChange(e.target.value as "none" | "asc" | "desc")}>
+        <select value={sort} onChange={(e) => onSortChange(e.target.value as SortOptions)}>
           <option value="none">None</option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
