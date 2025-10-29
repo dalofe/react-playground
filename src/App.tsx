@@ -4,6 +4,8 @@ import type { Task, TaskDraft } from './types/task';
 import { TaskFilterBar } from './components/TaskFilterBar';
 
 export default function App() {
+  const [sort, setSort] = useState<"none" | "asc" | "desc">("none");
+
   const loadStates = (key: string, fallback: Task[]): Task[] => {
     const saved = localStorage.getItem(key);
     return saved ? JSON.parse(saved) : fallback;
@@ -31,6 +33,12 @@ export default function App() {
     localStorage.setItem('backendTasks', JSON.stringify(backendTasks));
   }, [backendTasks]);
 
+  const sortedFrontendTasks = [...frontendTasks].sort((a, b) => {
+    if(sort === "none") return 0;
+    const direction = sort === "desc" ? -1 : 1;
+    return a.title.localeCompare(b.title, undefined, {sensitivity: "base"}) * direction;
+  });
+
   const handleAddFrotendTasks = (draft: TaskDraft) => {
     setFrontendTasks((prev) => [
       ...prev,
@@ -52,16 +60,16 @@ export default function App() {
 
   return (
     <div className="p-8 space-y-8">
-      <TaskFilterBar tasks={frontendTasks} setTasks={setFrontendTasks} />
+      <TaskFilterBar sort={sort} onSortChange={setSort} tasks={frontendTasks}/>
       <TaskList
         title="Frontend Team Tasks"
         showCompleted={true}
-        tasks={frontendTasks}
+        tasks={sortedFrontendTasks}
         setTasks={setFrontendTasks}
         emptyMessage="No frontend tasks"
         onAddTask={handleAddFrotendTasks}
       />
-      <TaskFilterBar tasks={backendTasks} setTasks={setBackendTasks} />
+      <TaskFilterBar sort={sort} onSortChange={setSort} tasks={backendTasks}/>
       <TaskList
         title="Backend Team Tasks"
         showCompleted={true}

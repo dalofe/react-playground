@@ -1,26 +1,13 @@
-import type { Dispatch, SetStateAction } from 'react';
 import type { Task } from '../types/task';
 
 type TaskFilterBarProps = {
-  tasks: Task[];
-  setTasks: Dispatch<SetStateAction<Task[]>>;
+  tasks: Task[],
+  sort: "none" | "asc" | "desc";
+  onSortChange: (value: "none" | "asc" | "desc") => void;
 };
 
-export function TaskFilterBar({ tasks, setTasks }: TaskFilterBarProps) {
-  function sortTasks(e: React.ChangeEvent<HTMLSelectElement>): void {
-    const sortBy = e.target.value;
-    const direction = sortBy === 'desc' ? -1 : 1;
-
-    const sorted = [...tasks].sort((a, b) => {
-      const comparisonResult = a.title.localeCompare(b.title, undefined, {
-        sensitivity: 'base',
-      });
-
-      return comparisonResult * direction;
-    });
-
-    setTasks(sorted);
-  }
+export function TaskFilterBar({ tasks, sort, onSortChange }: TaskFilterBarProps) {
+  
 
   return (
     <div className="flex gap-4 items-center p-3 bg-gray-100 rounded-lg">
@@ -34,7 +21,7 @@ export function TaskFilterBar({ tasks, setTasks }: TaskFilterBarProps) {
       </div>
       <div>
         <label className="mr-2 font-semibold">Sort:</label>
-        <select onChange={sortTasks}>
+        <select value={sort} onChange={(e) => onSortChange(e.target.value as "none" | "asc" | "desc")}>
           <option value="none">None</option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
