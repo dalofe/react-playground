@@ -105,7 +105,7 @@ export default function App() {
         emptyMessage="No frontend tasks"
         onAddTask={handleAddFrotendTasks}
       />
-      <TaskFilterBar
+      {/* <TaskFilterBar
         sort={sort}
         onSortChange={setSort}
         tasks={backendTasks}
@@ -120,10 +120,11 @@ export default function App() {
         setTasks={setBackendTasks}
         emptyMessage="No backend tasks"
         onAddTask={handleAddBackendTasks}
-      />
+      /> 
       <div className="p-4 bg-gray-100 rounded-lg">
         Overall Progress: {totalCompleted}/{totalTasks} tasks done
       </div>
+      */}
     </div>
   );
 }
