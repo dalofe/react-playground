@@ -51,6 +51,23 @@ export default function App() {
       );
     });
 
+  const visibleBackendTasks = [...backendTasks]
+    .filter((t) =>
+      filter === 'all'
+        ? true
+        : filter === 'completed'
+          ? t.completed
+          : !t.completed
+    )
+    .sort((a, b) => {
+      if (sort === 'none') return 0;
+      const direction = sort === 'desc' ? -1 : 1;
+      return (
+        a.title.localeCompare(b.title, undefined, { sensitivity: 'base' }) *
+        direction
+      );
+    });
+
   const handleAddFrotendTasks = (draft: TaskDraft) => {
     setFrontendTasks((prev) => [
       ...prev,
@@ -78,6 +95,7 @@ export default function App() {
         tasks={frontendTasks}
         filter={filter}
         onFilterChange={setFilter}
+        numberOfVisibleTasks={visibleFrontendTasks.length}
       />
       <TaskList
         title="Frontend Team Tasks"
@@ -93,6 +111,7 @@ export default function App() {
         tasks={backendTasks}
         filter={filter}
         onFilterChange={setFilter}
+        numberOfVisibleTasks={visibleBackendTasks.length}
       />
       <TaskList
         title="Backend Team Tasks"
