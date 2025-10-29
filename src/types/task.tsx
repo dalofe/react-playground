@@ -16,3 +16,5 @@ export type TaskCollection = Record<"pending" | "done", Task[]>;
 export type ReadonlyTask = Readonly<Task>;
 
 export type SortOptions = "none" | "asc" | "desc";
+
+export type FilterOptions = "all" | "completed" | "pending";

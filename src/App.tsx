@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import TaskList from './components/TaskList';
-import type { Task, TaskDraft } from './types/task';
+import type { Task, TaskDraft, SortOptions, FilterOptions } from './types/task';
 import { TaskFilterBar } from './components/TaskFilterBar';
 
 export default function App() {
-  const [sort, setSort] = useState<"none" | "asc" | "desc">("none");
+  const [sort, setSort] = useState<SortOptions>('none');
+  const [filter, setFilter] = useState<FilterOptions>('all');
 
   const loadStates = (key: string, fallback: Task[]): Task[] => {
     const saved = localStorage.getItem(key);
@@ -33,11 +34,22 @@ export default function App() {
     localStorage.setItem('backendTasks', JSON.stringify(backendTasks));
   }, [backendTasks]);
 
-  const sortedFrontendTasks = [...frontendTasks].sort((a, b) => {
-    if(sort === "none") return 0;
-    const direction = sort === "desc" ? -1 : 1;
-    return a.title.localeCompare(b.title, undefined, {sensitivity: "base"}) * direction;
-  });
+  const visibleFrontendTasks = [...frontendTasks]
+    .filter((t) =>
+      filter === 'all'
+        ? true
+        : filter === 'completed'
+          ? t.completed
+          : !t.completed
+    )
+    .sort((a, b) => {
+      if (sort === 'none') return 0;
+      const direction = sort === 'desc' ? -1 : 1;
+      return (
+        a.title.localeCompare(b.title, undefined, { sensitivity: 'base' }) *
+        direction
+      );
+    });
 
   const handleAddFrotendTasks = (draft: TaskDraft) => {
     setFrontendTasks((prev) => [
@@ -60,16 +72,28 @@ export default function App() {
 
   return (
     <div className="p-8 space-y-8">
-      <TaskFilterBar sort={sort} onSortChange={setSort} tasks={frontendTasks}/>
+      <TaskFilterBar
+        sort={sort}
+        onSortChange={setSort}
+        tasks={frontendTasks}
+        filter={filter}
+        onFilterChange={setFilter}
+      />
       <TaskList
         title="Frontend Team Tasks"
         showCompleted={true}
-        tasks={sortedFrontendTasks}
+        tasks={visibleFrontendTasks}
         setTasks={setFrontendTasks}
         emptyMessage="No frontend tasks"
         onAddTask={handleAddFrotendTasks}
       />
-      <TaskFilterBar sort={sort} onSortChange={setSort} tasks={backendTasks}/>
+      <TaskFilterBar
+        sort={sort}
+        onSortChange={setSort}
+        tasks={backendTasks}
+        filter={filter}
+        onFilterChange={setFilter}
+      />
       <TaskList
         title="Backend Team Tasks"
         showCompleted={true}
