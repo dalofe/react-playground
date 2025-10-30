@@ -18,14 +18,14 @@ export function TaskFilterBar({
   numberOfVisibleTasks,
 }: TaskFilterBarProps) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 items-center p-3 bg-gray-100 rounded-lg">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-        <div className="flex items-center gap-2">
-          <label className="mr-2 font-semibold text-sm text-gray-700">
-            Filter:{' '}
-          </label>
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-100 rounded-lg border border-gray-200">
+      {/* Left side: Filter + Sort */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full">
+        {/* Filter */}
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <label className="font-semibold text-sm text-gray-700">Filter:</label>
           <select
-            className="border border-gray-300 rounded-md p-1 text-sm"
+            className="flex-grow sm:flex-grow-0 sm:min-w-[140px] border border-gray-300 rounded-md p-1 text-sm bg-white hover:border-gray-400 focus:outlite-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition"
             value={filter}
             onChange={(e) => onFilterChange(e.target.value as FilterOptions)}
           >
@@ -34,12 +34,12 @@ export function TaskFilterBar({
             <option value="pending">Pending</option>
           </select>
         </div>
-        <div className="flex items-center gap-2">
-          <label className="mr-2 font-semibold text-sm text-gray-700">
-            Sort:
-          </label>
+
+        {/* Sort */}
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <label className="font-semibold text-sm text-gray-700">Sort:</label>
           <select
-            className="border border-gray-300 rounded-md p-1 text-sm"
+            className="flex-grow sm:flex-grow-0 sm:min-w-[140px] border border-gray-300 rounded-md p-1 text-sm bg-white hover:border-gray-400 focus:outlite-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition"
             value={sort}
             onChange={(e) => onSortChange(e.target.value as SortOptions)}
           >
@@ -49,7 +49,9 @@ export function TaskFilterBar({
           </select>
         </div>
       </div>
-      <span className="ml-auto text-xs sm:text-sm text-right text-gray-600">
+
+      {/* Right side: Task count */}
+      <span className="text-xs sm:text-sm text-right text-gray-600 sm:ml-auto">
         Showing {numberOfVisibleTasks} / {tasks.length} tasks
       </span>
     </div>
