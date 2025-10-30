@@ -25,7 +25,7 @@ export function TaskFilterBar({
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <label className="font-semibold text-sm text-gray-700">Filter:</label>
           <select
-            className="flex-grow sm:flex-grow-0 sm:min-w-[140px] border border-gray-300 rounded-md p-1 text-sm bg-white hover:border-gray-400 focus:outlite-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition"
+            className="select-base"
             value={filter}
             onChange={(e) => onFilterChange(e.target.value as FilterOptions)}
           >
@@ -39,7 +39,7 @@ export function TaskFilterBar({
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <label className="font-semibold text-sm text-gray-700">Sort:</label>
           <select
-            className="flex-grow sm:flex-grow-0 sm:min-w-[140px] border border-gray-300 rounded-md p-1 text-sm bg-white hover:border-gray-400 focus:outlite-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition"
+            className="select-base"
             value={sort}
             onChange={(e) => onSortChange(e.target.value as SortOptions)}
           >
