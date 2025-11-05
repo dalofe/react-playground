@@ -34,18 +34,18 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
 
     return (
         <div>
-            {errorMessage && (<span className="text-red-500 text-sm">{errorMessage}</span>)}
+            {errorMessage && (<span className="text-sm text-red-500 dark:text-red-400">{errorMessage}</span>)}
             {notification && <AlertBox message={notification} dismissible={true}/>}
             <form className="flex gap-2" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     placeholder="Add a new task"
-                    className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="rounded border border-gray-300 px-3 py-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:border-slate-600 dark:bg-slate-900 dark:text-gray-100 dark:focus:ring-blue-500"
                     value={title}
                     onChange={handleInputChange} />
                 <button
                     type="submit"
-                    className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                    className="rounded bg-blue-600 px-3 py-1 text-white transition hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400"
                 >+</button>
             </form>
         </div>

@@ -18,12 +18,12 @@ export function TaskFilterBar({
   numberOfVisibleTasks,
 }: TaskFilterBarProps) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-100 rounded-lg border border-gray-200">
+    <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:p-4 dark:border-slate-700 dark:bg-slate-800">
       {/* Left side: Filter + Sort */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full">
         {/* Filter */}
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <label className="font-semibold text-sm text-gray-700">Filter:</label>
+          <label className="text-sm font-semibold text-gray-700 dark:text-gray-200">Filter:</label>
           <select
             className="select-base"
             value={filter}
@@ -37,7 +37,7 @@ export function TaskFilterBar({
 
         {/* Sort */}
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <label className="font-semibold text-sm text-gray-700">Sort:</label>
+          <label className="text-sm font-semibold text-gray-700 dark:text-gray-200">Sort:</label>
           <select
             className="select-base"
             value={sort}
@@ -51,7 +51,7 @@ export function TaskFilterBar({
       </div>
 
       {/* Right side: Task count */}
-      <span className="text-xs sm:text-sm text-right text-gray-600 sm:ml-auto">
+      <span className="text-right text-xs text-gray-600 sm:ml-auto sm:text-sm dark:text-gray-300">
         Showing {numberOfVisibleTasks} / {tasks.length} tasks
       </span>
     </div>
