@@ -23,35 +23,7 @@ export default function App() {
     localStorage.setItem('frontendTasks', JSON.stringify(frontendTasks));
   }, [frontendTasks]);
 
-  const [backendTasks, setBackendTasks] = useState<Task[]>(() =>
-    loadStates('backendTasks', [
-      { id: 1, title: 'Set up Prisma', completed: false },
-      { id: 2, title: 'Implement API auth', completed: false },
-    ])
-  );
-
-  useEffect(() => {
-    localStorage.setItem('backendTasks', JSON.stringify(backendTasks));
-  }, [backendTasks]);
-
   const visibleFrontendTasks = [...frontendTasks]
-    .filter((t) =>
-      filter === 'all'
-        ? true
-        : filter === 'completed'
-          ? t.completed
-          : !t.completed
-    )
-    .sort((a, b) => {
-      if (sort === 'none') return 0;
-      const direction = sort === 'desc' ? -1 : 1;
-      return (
-        a.title.localeCompare(b.title, undefined, { sensitivity: 'base' }) *
-        direction
-      );
-    });
-
-  const visibleBackendTasks = [...backendTasks]
     .filter((t) =>
       filter === 'all'
         ? true
@@ -75,18 +47,6 @@ export default function App() {
     ]);
   };
 
-  const handleAddBackendTasks = (draft: TaskDraft) => {
-    setBackendTasks((prev) => [
-      ...prev,
-      { id: Date.now(), title: draft.title ?? '', completed: false },
-    ]);
-  };
-
-  const totalTasks = frontendTasks.length + backendTasks.length;
-  const totalCompleted =
-    frontendTasks.filter((t) => t.completed).length +
-    backendTasks.filter((t) => t.completed).length;
-
   return (
     <div className="p-8 space-y-8">
       <TaskFilterBar
@@ -105,26 +65,6 @@ export default function App() {
         emptyMessage="No frontend tasks"
         onAddTask={handleAddFrotendTasks}
       />
-      {/* <TaskFilterBar
-        sort={sort}
-        onSortChange={setSort}
-        tasks={backendTasks}
-        filter={filter}
-        onFilterChange={setFilter}
-        numberOfVisibleTasks={visibleBackendTasks.length}
-      />
-      <TaskList
-        title="Backend Team Tasks"
-        showCompleted={true}
-        tasks={backendTasks}
-        setTasks={setBackendTasks}
-        emptyMessage="No backend tasks"
-        onAddTask={handleAddBackendTasks}
-      /> 
-      <div className="p-4 bg-gray-100 rounded-lg">
-        Overall Progress: {totalCompleted}/{totalTasks} tasks done
-      </div>
-      */}
     </div>
   );
 }
