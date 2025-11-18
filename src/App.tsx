@@ -2,10 +2,34 @@ import { useEffect, useState } from 'react';
 import TaskList from './components/TaskList';
 import type { Task, TaskDraft, SortOptions, FilterOptions } from './types/task';
 import { TaskFilterBar } from './components/TaskFilterBar';
+import DarkModeToggle from './components/DarkModeToggle';
 
 export default function App() {
   const [sort, setSort] = useState<SortOptions>('none');
   const [filter, setFilter] = useState<FilterOptions>('all');
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme');
+      if (stored) {
+        return stored === 'dark';
+      }
+      return (
+        window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
+      );
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
 
   const loadStates = (key: string, fallback: Task[]): Task[] => {
     const saved = localStorage.getItem(key);
@@ -48,23 +72,33 @@ export default function App() {
   };
 
   return (
-    <div className="p-8 space-y-8">
-      <TaskFilterBar
-        sort={sort}
-        onSortChange={setSort}
-        tasks={frontendTasks}
-        filter={filter}
-        onFilterChange={setFilter}
-        numberOfVisibleTasks={visibleFrontendTasks.length}
-      />
-      <TaskList
-        title="Frontend Team Tasks"
-        showCompleted={true}
-        tasks={visibleFrontendTasks}
-        setTasks={setFrontendTasks}
-        emptyMessage="No frontend tasks"
-        onAddTask={handleAddFrotendTasks}
-      />
+    <div
+      className={`transition-colors duration-300 ${isDarkMode ? 'bg-slate-900 text-gray-100' : 'bg-gray-50 text-gray-900'}`}
+    >
+      <div className="p-8 space-y-8">
+        <header>
+          <DarkModeToggle
+            isDarkMode={isDarkMode}
+            setIsDarkMode={setIsDarkMode}
+          />
+        </header>
+        <TaskFilterBar
+          sort={sort}
+          onSortChange={setSort}
+          tasks={frontendTasks}
+          filter={filter}
+          onFilterChange={setFilter}
+          numberOfVisibleTasks={visibleFrontendTasks.length}
+        />
+        <TaskList
+          title="Frontend Team Tasks"
+          showCompleted={true}
+          tasks={visibleFrontendTasks}
+          setTasks={setFrontendTasks}
+          emptyMessage="No frontend tasks"
+          onAddTask={handleAddFrotendTasks}
+        />
+      </div>
     </div>
   );
 }

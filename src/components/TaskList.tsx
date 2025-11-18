@@ -48,7 +48,9 @@ export default function TaskList({
   return (
     <div className="p-6 bg-white rounded-xl shadow-md mt-6">
       <div className="flex justify-between p-2">
-        <h2 className="text-xl font-semibold mb-4">{title}</h2>
+        <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">
+          {title}
+        </h2>
         <TaskForm onAddTask={onAddTask} />
       </div>
       <TaskProgress tasks={tasks} />

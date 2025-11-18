@@ -7,10 +7,24 @@ type AlertBoxProps = {
 };
 
 const typeClasses: Record<AlertType, string> = {
-  success: 'bg-green-100 border-green-400 text-green-700',
+  success:
+    'bg-green-100 border-green-400 text-green-700 dark:border-green-500 dark:bg-green-900/60 dark:text-green-100',
   error: 'bg-red-100 border-red-400 text-red-700',
   warning: 'bg-yellow-100 border-yellow-400 text-yellow-700',
 };
+/*
+const typeClasses: Record<AlertType, string> = {
+  success: 'bg-green-100 border-green-400 text-green-700',
+  error: 'bg-red-100 border-red-400 text-red-700',
+  warning: 'bg-yellow-100 border-yellow-400 text-yellow-700',
+  success:
+    'bg-green-100 border-green-400 text-green-700 dark:border-green-500 dark:bg-green-900/60 dark:text-green-100',
+  error:
+    'bg-red-100 border-red-400 text-red-700 dark:border-red-500 dark:bg-red-900/60 dark:text-red-100',
+  warning:
+    'bg-yellow-100 border-yellow-400 text-yellow-700 dark:border-amber-500 dark:bg-amber-900/60 dark:text-amber-100',
+};
+*/
 
 export function AlertBox({
   message,
@@ -26,9 +40,7 @@ export function AlertBox({
     >
       <p>{message}</p>
       {dismissible && (
-        <button
-          className="absolute top-1 right-2 text-lg font-bold text-inherit hover:opacity-70"
-        >
+        <button className="absolute top-1 right-2 text-lg font-bold text-inherit hover:opacity-70">
           x
         </button>
       )}
