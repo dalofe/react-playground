@@ -75,13 +75,8 @@ export default function App() {
     <div
       className={`transition-colors duration-300 ${isDarkMode ? 'bg-slate-900 text-gray-100' : 'bg-gray-50 text-gray-900'}`}
     >
-      <div className="p-8 space-y-8">
-        <header>
-          <DarkModeToggle
-            isDarkMode={isDarkMode}
-            setIsDarkMode={setIsDarkMode}
-          />
-        </header>
+      <div className="max-w-4xl mx-auto p-6 sm:p-10 space-y-8">
+        <DarkModeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
         <TaskFilterBar
           sort={sort}
           onSortChange={setSort}

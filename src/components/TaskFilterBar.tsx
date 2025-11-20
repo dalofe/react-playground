@@ -18,7 +18,9 @@ export function TaskFilterBar({
   numberOfVisibleTasks,
 }: TaskFilterBarProps) {
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-3 sm:flex-row sm:items-center sm:p-4 sm:justify-between sm:gap-4 dark:border-slate-700 dark:bg-slate-800">
+    <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-3 
+    sm:flex-row sm:items-center sm:p-4 sm:justify-between sm:gap-4 
+    dark:border-slate-700 dark:bg-slate-800">
       {/* Left side: Filter + Sort */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full">
         {/* Filter */}
