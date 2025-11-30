@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import TaskProgress from './TaskProgress';
 import TaskForm from './TaskForm';
 import type { Task, TaskDraft } from '../types/task';
+import Button from './Button';
 
 type TaskListProps = {
   title: string;
@@ -87,14 +88,12 @@ export default function TaskList({
                 </div>
 
                 <div>
-                  <button
+                  <Button
+                    variant={task.completed ? 'success' : 'primary'}
                     onClick={() => toggleTask(task.id)}
-                    className="mr-2 rounded px-3 py-1 bg-green-500 text-white transition 
-                    hover:bg-green-600
-                    dark:bg-green-600 dark:hover:bg-green-500"
                   >
                     {task.completed ? 'Undo' : 'Done'}
-                  </button>
+                  </Button>
                   <button
                     onClick={() => deleteTask(task.id)}
                     className="rounded px-3 py-1 bg-red-600 text-white transition 
