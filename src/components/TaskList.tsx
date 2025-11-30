@@ -89,33 +89,24 @@ export default function TaskList({
 
                 <div>
                   <Button
+                    className="mr-1"
                     variant={task.completed ? 'success' : 'primary'}
                     onClick={() => toggleTask(task.id)}
                   >
                     {task.completed ? 'Undo' : 'Done'}
                   </Button>
-                  <button
-                    onClick={() => deleteTask(task.id)}
-                    className="rounded px-3 py-1 bg-red-600 text-white transition 
-                    hover:bg-red-700
-                    dark:bg-red-600 dark:hover:bg-red-500"
-                  >
+                  <Button variant="danger" onClick={() => deleteTask(task.id)}>
                     x
-                  </button>
+                  </Button>
                 </div>
               </li>
             ))
         )}
       </ul>
       <div className="grid justify-items-center mt-3">
-        <button
-          onClick={emptyList}
-          className="rounded px-3 py-1 bg-yellow-200 text-yellow-900 transition
-          hover:bg-yellow-300
-          dark:bg-amber-500/20 dark:text-amber-200 dark:hover:bg-amber-500/30"
-        >
+        <Button variant="warning" onClick={emptyList}>
           Clear all tasks
-        </button>
+        </Button>
       </div>
     </div>
   );

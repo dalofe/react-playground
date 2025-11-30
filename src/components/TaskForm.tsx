@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { AlertBox } from './AlertBox';
 import type { TaskDraft } from '../types/task';
+import Button from './Button';
 
 type TaskFormProps = {
   onAddTask: (task: TaskDraft) => void;
@@ -50,14 +51,7 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
           value={title}
           onChange={handleInputChange}
         />
-        <button
-          type="submit"
-          className="rounded bg-blue-600 px-3 py-1 text-white transition 
-          hover:bg-blue-700
-          dark:bg-blue-500 dark:hover:bg-blue-400"
-        >
-          +
-        </button>
+        <Button type="submit">+</Button>
       </form>
     </div>
   );
