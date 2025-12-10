@@ -3,6 +3,7 @@ import TaskProgress from './TaskProgress';
 import TaskForm from './TaskForm';
 import type { Task, TaskDraft } from '../types/task';
 import Button from './Button';
+import { PiCheckFatFill } from 'react-icons/pi';
 
 interface TaskListProps {
   title: string;
@@ -12,7 +13,7 @@ interface TaskListProps {
   onTaskToggle?: (task: Task) => void;
   emptyMessage?: string;
   onAddTask: (Task: TaskDraft) => void;
-};
+}
 
 export default function TaskList({
   title,
@@ -82,7 +83,7 @@ export default function TaskList({
                   </span>
                   {task.completed && (
                     <span className="text-green-600 text-sm dark:text-green-400">
-                      ✔
+                      <PiCheckFatFill />
                     </span>
                   )}
                 </div>

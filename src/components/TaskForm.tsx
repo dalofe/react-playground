@@ -3,6 +3,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { AlertBox } from './AlertBox';
 import type { TaskDraft } from '../types/task';
 import Button from './Button';
+import { FaPlus } from 'react-icons/fa';
 
 type TaskFormProps = {
   onAddTask: (task: TaskDraft) => void;
@@ -51,7 +52,9 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
           value={title}
           onChange={handleInputChange}
         />
-        <Button type="submit">+</Button>
+        <Button type="submit">
+          <FaPlus />
+        </Button>
       </form>
     </div>
   );

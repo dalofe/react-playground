@@ -1,10 +1,12 @@
+import { RiCloseFill } from 'react-icons/ri';
+
 type AlertType = 'success' | 'error' | 'warning';
 
 interface AlertBoxProps {
   message: string;
   type?: AlertType;
   dismissible?: boolean;
-};
+}
 
 const typeClasses: Record<AlertType, string> = {
   success:
@@ -24,18 +26,18 @@ export function AlertBox({
 
   return (
     <div
-      className={`fixed bottom-8 right-8 mb-4 rounded border-l-4 p-4 shadow-md transition-opacity dark:shadow-lg ${typeClasses[type]}`}
+      className={`fixed bottom-8 right-8 mb-4 rounded border-l-4 p-4 pe-8 shadow-md transition-opacity dark:shadow-lg ${typeClasses[type]}`}
       role="alert"
     >
       <p>{message}</p>
       {dismissible && (
         <button
-          className="absolute right-2 top-1 text-lg font-bold text-inherit transition
+          className="absolute right-2 top-2 text-lg font-bold text-inherit transition
         hover:opacity-70
         focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
         dark:focus:ring-blue-600"
         >
-          x
+          <RiCloseFill />
         </button>
       )}
     </div>
