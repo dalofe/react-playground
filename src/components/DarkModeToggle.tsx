@@ -1,9 +1,10 @@
 import type { Dispatch, SetStateAction } from 'react';
 
-type DarkModeToggleProps = {
+interface DarkModeToggleProps {
   isDarkMode: boolean;
   setIsDarkMode: Dispatch<SetStateAction<boolean>>;
 };
+
 export default function DarkModeToggle({
   isDarkMode,
   setIsDarkMode,

@@ -4,7 +4,7 @@ import TaskForm from './TaskForm';
 import type { Task, TaskDraft } from '../types/task';
 import Button from './Button';
 
-type TaskListProps = {
+interface TaskListProps {
   title: string;
   tasks: Task[];
   setTasks: Dispatch<SetStateAction<Task[]>>;

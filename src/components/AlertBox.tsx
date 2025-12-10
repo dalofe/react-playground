@@ -1,6 +1,6 @@
 type AlertType = 'success' | 'error' | 'warning';
 
-type AlertBoxProps = {
+interface AlertBoxProps {
   message: string;
   type?: AlertType;
   dismissible?: boolean;

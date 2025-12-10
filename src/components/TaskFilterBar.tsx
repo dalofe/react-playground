@@ -1,14 +1,14 @@
 import type { Task, SortOptions, FilterOptions } from '../types/task';
 import { Select } from './Select';
 
-type TaskFilterBarProps = {
+interface TaskFilterBarProps {
   tasks: Task[];
   sort: SortOptions;
   onSortChange: (value: SortOptions) => void;
   filter: FilterOptions;
   onFilterChange: (value: FilterOptions) => void;
   numberOfVisibleTasks: number;
-};
+}
 
 export function TaskFilterBar({
   tasks,
