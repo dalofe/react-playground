@@ -7,29 +7,6 @@ import DarkModeToggle from './components/DarkModeToggle';
 export default function App() {
   const [sort, setSort] = useState<SortOptions>('none');
   const [filter, setFilter] = useState<FilterOptions>('all');
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme');
-      if (stored) {
-        return stored === 'dark';
-      }
-      return (
-        window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
-      );
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDarkMode) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
 
   const loadStates = (key: string, fallback: Task[]): Task[] => {
     const saved = localStorage.getItem(key);
@@ -73,10 +50,10 @@ export default function App() {
 
   return (
     <div
-      className={`transition-colors duration-300 min-h-screen ${isDarkMode ? 'bg-slate-900 text-gray-100' : 'bg-gray-50 text-gray-900'}`}
+      className="transition-colors duration-300 min-h-screen bg-slate-50 text-gray-900 dark:bg-slate-900 dark:text-gray-100"
     >
       <div className="max-w-4xl mx-auto p-6 sm:p-10 space-y-8">
-        <DarkModeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+        <DarkModeToggle />
         <TaskFilterBar
           sort={sort}
           onSortChange={setSort}

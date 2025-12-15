@@ -1,14 +1,7 @@
-import type { Dispatch, SetStateAction } from 'react';
+import { useDarkMode } from '../hooks/useDarkMode';
 
-interface DarkModeToggleProps {
-  isDarkMode: boolean;
-  setIsDarkMode: Dispatch<SetStateAction<boolean>>;
-};
-
-export default function DarkModeToggle({
-  isDarkMode,
-  setIsDarkMode,
-}: DarkModeToggleProps) {
+export default function DarkModeToggle() {
+  const [isDarkMode, setIsDarkMode] = useDarkMode();
   return (
     <div className="flex flex-col sm:flex-row justify-between gap-4">
       <h1 className="text-3xl font-bold">Task dashboard</h1>
