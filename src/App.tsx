@@ -41,7 +41,7 @@ export default function App() {
       );
     });
 
-  const handleAddFrotendTasks = (draft: TaskDraft) => {
+  const handleAddFrontendTasks = (draft: TaskDraft) => {
     setFrontendTasks((prev) => [
       ...prev,
       { id: Date.now(), title: draft.title ?? '', completed: false },
@@ -68,7 +68,7 @@ export default function App() {
           tasks={visibleFrontendTasks}
           setTasks={setFrontendTasks}
           emptyMessage="No frontend tasks"
-          onAddTask={handleAddFrotendTasks}
+          onAddTask={handleAddFrontendTasks}
         />
       </div>
     </div>
