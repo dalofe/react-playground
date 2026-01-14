@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { AlertBox } from './AlertBox';
 import type { TaskDraft } from '../types/task';
@@ -33,6 +33,15 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
       timeoutRef.current = window.setTimeout(() => setNotification(''), 3000);
     }
   };
+
+  //Making sure to clear timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {   
+        clearTimeout(timeoutRef.current);
+      }   
+    };
+  }, []);
 
   return (
     <div>
